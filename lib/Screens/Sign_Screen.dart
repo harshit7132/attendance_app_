@@ -27,6 +27,7 @@ class SignUp_screenState extends State<SignUp_screen> {
   TextEditingController nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+
     var mqh = MediaQuery.of(context).size.height;
     var mqw = MediaQuery.of(context).size.width;
 
@@ -122,7 +123,7 @@ class SignUp_screenState extends State<SignUp_screen> {
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(70))
                     ),
                     child: Padding(
-                      padding:  EdgeInsets.only(top: 50,left: 10,right: 10),
+                      padding:  EdgeInsets.only(top: 25.h,left: 10.w,right: 10.w),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -130,7 +131,7 @@ class SignUp_screenState extends State<SignUp_screen> {
                               obscureText: false,
                               controller: nameController,
                               hinttext: 'UserName',
-                            textstyle:GoogleFonts.acme(fontSize: 23.sp,color: Colors.black)
+                            textstyle:GoogleFonts.acme(fontSize: 20.sp,color: Colors.black)
                           ),
                              SizedBox(
                             height: mqh * 0.02,
@@ -139,7 +140,7 @@ class SignUp_screenState extends State<SignUp_screen> {
                             obscureText: false,
                             controller: emailController,
                             hinttext: 'E-mail',
-                            textstyle: GoogleFonts.acme(fontSize: 23.sp,color: Colors.black)),
+                            textstyle: GoogleFonts.acme(fontSize: 20.sp,color: Colors.black)),
                           SizedBox(
                             height: mqh * 0.030,
                           ),
@@ -147,7 +148,7 @@ class SignUp_screenState extends State<SignUp_screen> {
                               obscureText: true,
                               controller: passController,
                               hinttext: 'Password',
-                              textstyle: GoogleFonts.acme(fontSize:  23.sp,color: Colors.black)),
+                              textstyle: GoogleFonts.acme(fontSize:  20.sp,color: Colors.black)),
                           SizedBox(
                             height: mqh * 0.030,
                           ),
@@ -155,26 +156,26 @@ class SignUp_screenState extends State<SignUp_screen> {
                               obscureText: true,
                               controller: CpassController,
                               hinttext: 'Conform Password',
-                              textstyle: GoogleFonts.acme(fontSize:  23.sp,color: Colors.black,)),
+                              textstyle: GoogleFonts.acme(fontSize:  20.sp,color: Colors.black,)),
                           SizedBox(height: mqh * 0.06),
                           Button(
                             btnName: 'LOG IN',
 
                             bgColor: Colors.black,
-                            textstyle: GoogleFonts.acme(fontSize:  22.sp,color: Colors.white),
+                            textstyle: GoogleFonts.acme(fontSize:  18.sp,color: Colors.white),
                             callBack: () {
                               SignUp();
                             },
                           ),
                           SizedBox(height: mqh * 0.04),
-                          Text('___________   Or Login With  ___________',style: GoogleFonts.acme(fontSize:  20.sp),),
+                          Text('___________   Or Login With  ___________',style: GoogleFonts.acme(fontSize:18.sp),),
                           SizedBox(height: mqh * 0.05),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Button(
                                   bgColor: Colors.black,
-                                btnName: 'Google',textstyle: GoogleFonts.acme(fontSize:  22.sp,color: Colors.white),
+                                btnName: 'Google',textstyle: GoogleFonts.acme(fontSize:  18.sp,color: Colors.white),
                                 callBack: (){
                                   signInwithGoogle(context: context);
                                 }
@@ -182,7 +183,7 @@ class SignUp_screenState extends State<SignUp_screen> {
                               Button(
                                 btnName: 'Phone',
                                 bgColor: Colors.black,
-                                textstyle:  GoogleFonts.acme(fontSize:  22.sp,color: Colors.white),
+                                textstyle:  GoogleFonts.acme(fontSize: 18.sp,color: Colors.white),
                                 //  icon: Icon(FontAwesomeIcons.phone)
                                 callBack: () {
                                   Navigator.push(context,

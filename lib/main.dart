@@ -34,23 +34,7 @@ class MyApp extends StatelessWidget {
           ),
           initialRoute: '/',
           onGenerateRoute: RouteGen().generateRoute,
-          home: StreamBuilder<User?>(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if(snapshot.hasError){
-                return Text(snapshot.error.toString());
-              }
-              if (snapshot.connectionState==ConnectionState.active){
-                if(snapshot.data==null){
-                  return Login_screen();
-                }
-                else {
-                  return Home_page();
-                }
-              }
-              return CircularProgressIndicator();
-            },
-          )
+          home: Login_screen()
         ),
       ),
     );
