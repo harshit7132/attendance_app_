@@ -22,24 +22,26 @@ class Splash_screenState extends State<Splash_screen> {
     var sharedPref = await SharedPreferences.getInstance();
     var isLoggedIn = sharedPref.getBool(KEYLOGIN);
 
-    Timer(Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 5), () {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Login_screen()));
       if (isLoggedIn != null) {
         if (isLoggedIn) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Home_page()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const Home_page()));
         } else {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Login_screen()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const Login_screen()));
         }
       } else {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Login_screen()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const Login_screen()));
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('Splash')));
+    return const Scaffold(body: Center(child: Text('Attendance App')));
   }
 }

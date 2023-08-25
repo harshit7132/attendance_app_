@@ -1,4 +1,3 @@
-
 // ignore_for_file: file_names, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
@@ -8,7 +7,8 @@ class GradientSlideToAct extends StatefulWidget {
   final Function onSlideCompleted;
   final List<Color> gradientColors;
 
-  const GradientSlideToAct({super.key,
+  const GradientSlideToAct({
+    super.key,
     required this.text,
     required this.onSlideCompleted,
     required this.gradientColors,
@@ -24,8 +24,10 @@ class _GradientSlideToActState extends State<GradientSlideToAct> {
 
   @override
   Widget build(BuildContext context) {
+    var mqh = MediaQuery.of(context).size.height;
+    var mqw = MediaQuery.of(context).size.width;
     return SizedBox(
-      height: 60.0,
+      height: mqh * 0.07,
       child: GestureDetector(
         onHorizontalDragUpdate: (DragUpdateDetails details) {
           setState(() {
@@ -61,10 +63,10 @@ class _GradientSlideToActState extends State<GradientSlideToAct> {
                   end: Alignment.centerRight,
                 ),
               ),
-              child: const Align(
+              child: Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 16.0),
+                  padding: EdgeInsets.only(left: mqw * 0.1),
                   child: Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.white,
@@ -76,7 +78,7 @@ class _GradientSlideToActState extends State<GradientSlideToAct> {
               alignment: Alignment.center,
               child: Text(
                 widget.text,
-                style: const TextStyle(fontSize: 20.0, color: Colors.white),
+                style: TextStyle(fontSize: mqh * 0.03, color: Colors.white),
               ),
             ),
             Positioned(

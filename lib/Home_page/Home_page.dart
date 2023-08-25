@@ -1,12 +1,11 @@
 // ignore_for_file: camel_case_types
-
 import 'package:attendance_app/Bottom_nav_screen/Calendar_b_nav.dart';
-import 'package:attendance_app/Bottom_nav_screen/Check_b_nav.dart';
 import 'package:attendance_app/Bottom_nav_screen/User_b_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../bloc/bottom_nav_bloc.dart';
+import '../example1.dart';
 
 class Home_page extends StatefulWidget {
   const Home_page({super.key});
@@ -34,8 +33,8 @@ class _Home_pageState extends State<Home_page> {
 
     List<Widget> bottomNavScreen = <Widget>[
       const Calendar_B_Nav(),
-      const CheckInOutScreen(),
-      const User_B_Nav(),
+       AttendanceScreen(),
+      const UserProfile(),
     ];
 
     return Scaffold(
@@ -48,10 +47,12 @@ class _Home_pageState extends State<Home_page> {
           items: bottomNavIcons,
           currentIndex: BlocProvider.of<BottomNavBloc>(context).state.tabIndex,
           onTap: (index) {
-            BlocProvider.of<BottomNavBloc>(context)
-                .add(Tabchange(tabIndex: index));
+            setState(() {
+              BlocProvider.of<BottomNavBloc>(context)
+                  .add(Tabchange(tabIndex: index));
+            });
           },
-          selectedItemColor: Colors.amberAccent,
+          selectedItemColor: Colors.red,
         ));
   }
 }

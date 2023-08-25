@@ -1,5 +1,5 @@
-import 'package:attendance_app/Home_page/second.dart';
-import 'package:attendance_app/Home_page/tab_pages.dart';
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 
 class Container_page extends StatefulWidget {
@@ -67,9 +67,8 @@ class _Container_pageState extends State<Container_page>
                           )
                         ]),
                     Expanded(
-                        child: TabBarView(
-                            controller: tabController,
-                            children: [First_Tab_page(), Second_page()]))
+                        child:
+                            TabBarView(controller: tabController, children: []))
                   ],
                 ),
               ),

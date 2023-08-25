@@ -1,9 +1,13 @@
-// ignore_for_file: file_names, library_private_types_in_public_api
+// ignore_for_file: file_names, library_private_types_in_public_api, unused_local_variable, unused_element, non_constant_identifier_names, avoid_print
 
+import 'dart:core';
+import 'package:attendance_app/Screens/Sign_Screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../Custom_widgets/Gradient slider.dart';
 
+
+String datetime1=DateTime.now().toString();
+String datetime=DateTime.now().toString();
 
 class CheckInOutScreen extends StatefulWidget {
   const CheckInOutScreen({super.key});
@@ -12,106 +16,62 @@ class CheckInOutScreen extends StatefulWidget {
 }
 
 class _CheckInOutScreenState extends State<CheckInOutScreen> {
-  bool isCheckedIn = false;
-  DateTime? checkInTime;
-  DateTime? checkOutTime;
 
-  @override
-  void initState() {
-    super.initState();
-    loadCheckInOutData();
-  }
-
-  Future<void> loadCheckInOutData() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isCheckedIn = prefs.getBool('isCheckedIn') ?? false;
-      final checkInTimestamp = prefs.getInt('checkInTime');
-      if (checkInTimestamp != null) {
-        checkInTime = DateTime.fromMillisecondsSinceEpoch(checkInTimestamp);
-      }
-      final checkOutTimestamp = prefs.getInt('checkOutTime');
-      if (checkOutTimestamp != null) {
-        checkOutTime = DateTime.fromMillisecondsSinceEpoch(checkOutTimestamp);
-      }
-    });
-  }
-
-
-  Future<void> saveCheckInOutData() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isCheckedIn', isCheckedIn);
-    await prefs.setInt('checkInTime', checkInTime?.millisecondsSinceEpoch ?? 0);
-    await prefs.setInt('checkOutTime', checkOutTime?.millisecondsSinceEpoch ?? 0);
-  }
-
-  void checkIn() {
-    setState(() {
-      isCheckedIn = true;
-      checkInTime = DateTime.now();
-      saveCheckInOutData();
-    });
-  }
-
-  void checkOut() {
-    setState(() {
-      isCheckedIn = false;
-      checkOutTime = DateTime.now();
-      saveCheckInOutData();
-    });
-  }
+  String checkInTime = "";
+  String checkOutTime = "";
 
   @override
   Widget build(BuildContext context) {
+    var mqh = MediaQuery.of(context).size.height;
+    var mqw = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Check-In/Check-Out'),
-      ),
-      body: Center(
-        child: Column(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Check-In/Check-Out'),
+        ),
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              isCheckedIn ? 'Checked In' : 'Checked Out',
-              style: const TextStyle(fontSize: 24.0),
-            ),
-            const SizedBox(height: 20.0),
-            if (isCheckedIn)
-              Column(
-                children: [
-                  const Text(
-                    'Check-in time:',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  Text(
-                    checkInTime.toString(),
-                    style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            if (!isCheckedIn && checkOutTime != null)
-              Column(
-                children: [
-                  const Text(
-                    'Check-out time:',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  Text(
-                    checkOutTime.toString(),
-                    style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10.0),
-                ],
-              ),
-            const SizedBox(height: 40.0),
-            GradientSlideToAct(
-              text: isCheckedIn ? 'Check-Out' : 'Check-In',
-              onSlideCompleted: isCheckedIn ? checkOut : checkIn,
-              gradientColors: const [Color(0xFF00F260), Color(0xFF0575E6)],
-            ),
+            Row(children: [
+              Text('Checked In : $datetime1.toString()') ,
+              Text("Checked Out : $datetime.toString()"),
+            ],)
+            ,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      CheckedIn();
+                    },
+                    child: Text('Check In')),
+                ElevatedButton(
+                    onPressed: () {
+                      CheckedOut();
+                    },
+                    child: Text('Check out'
+                       )),
+              ],
+            )
           ],
-        ),
-      ),
-    );
+        ));
+  }
+
+  void CheckedOut(){
+    FirebaseFirestore.instance.collection("Check in & check out").doc(user!.email).collection("Checked Out").doc(user!.displayName).set(
+        {"Checkout": datetime}).then((value){
+      print(datetime);
+    });
+
+  }
+
+  void CheckedIn(
+  ) async {
+    await FirebaseFirestore.instance
+        .collection("Check in & check out").doc(user!.email).set(
+        {'Checked In': datetime1}
+     ).then((value){
+       print(datetime1);
+     });
   }
 }
