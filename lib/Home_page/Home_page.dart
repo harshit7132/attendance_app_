@@ -1,6 +1,6 @@
-// ignore_for_file: camel_case_types
-import 'package:attendance_app/Bottom_nav_screen/Calendar_b_nav.dart';
+// ignore_for_file: camel_case_types, file_names
 import 'package:attendance_app/Bottom_nav_screen/User_b_nav.dart';
+import 'package:attendance_app/calander/event_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,17 +32,15 @@ class _Home_pageState extends State<Home_page> {
     ];
 
     List<Widget> bottomNavScreen = <Widget>[
-      const Calendar_B_Nav(),
-       AttendanceScreen(),
-      const UserProfile(),
+      EventCalendarScreen(),
+      AttendanceScreen(),
+       UserProfile(),
     ];
 
-    return Scaffold(
-        body: BlocBuilder<BottomNavBloc, BottomNavState>(
-          builder: (context, state) {
-            return Center(child: bottomNavScreen[state.tabIndex]);
-          },
-        ),
+    return BlocBuilder<BottomNavBloc, BottomNavState>(
+    builder: (context, state) {
+    return Scaffold(backgroundColor: Colors.blue,
+        body: Center(child: bottomNavScreen[state.tabIndex]),
         bottomNavigationBar: BottomNavigationBar(
           items: bottomNavIcons,
           currentIndex: BlocProvider.of<BottomNavBloc>(context).state.tabIndex,
@@ -54,5 +52,7 @@ class _Home_pageState extends State<Home_page> {
           },
           selectedItemColor: Colors.red,
         ));
+  },
+);
   }
 }

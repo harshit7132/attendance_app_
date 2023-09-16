@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Button extends StatelessWidget {
   final String btnName;
@@ -8,8 +9,8 @@ class Button extends StatelessWidget {
   final VoidCallback? callBack;
   final Alignment? alignment;
 
-  Button(
-      {required this.btnName,
+  const Button(
+      {super.key, required this.btnName,
       this.icon,
        this.bgColor,
       this.textstyle,
@@ -18,12 +19,9 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mqH = MediaQuery.sizeOf(context).height;
-    final mqW = MediaQuery.sizeOf(context).width;
-
     return SizedBox(
-      height: mqH * 0.06,
-      width: mqW * 0.4,
+      height:50.h,
+      width: 210.w,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(backgroundColor: bgColor),
         onPressed: () {

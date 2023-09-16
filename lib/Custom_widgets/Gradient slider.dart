@@ -67,7 +67,7 @@ class _GradientSlideToActState extends State<GradientSlideToAct> {
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: EdgeInsets.only(left: mqw * 0.1),
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.white,
                   ),

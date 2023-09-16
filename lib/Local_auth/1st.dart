@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 
@@ -29,13 +31,13 @@ class _First_appState extends State<First_app> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (_supportState)
-              Text('This devise is supported')
+              const Text('This devise is supported')
             else
-              Text('This devise is not supported'),
-            Divider(height: 100),
+              const Text('This devise is not supported'),
+            const Divider(height: 100),
             ElevatedButton(
                 onPressed: _getAvailableBiometrics,
-                child: Text('Get available biometrics'))
+                child: const Text('Get available biometrics'))
           ],
         ),
       ),
@@ -45,7 +47,6 @@ class _First_appState extends State<First_app> {
   Future<void> _getAvailableBiometrics() async {
     List<BiometricType> availableBiometrics =
         await auth.getAvailableBiometrics();
-    print("List of available : $availableBiometrics");
 
     if (!mounted) {
       return;

@@ -3,11 +3,11 @@
 import 'dart:core';
 import 'package:attendance_app/Screens/Sign_Screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
-String datetime1=DateTime.now().toString();
-String datetime=DateTime.now().toString();
+String datetime1 = DateTime.now().toString();
+String datetime = DateTime.now().toString();
 
 class CheckInOutScreen extends StatefulWidget {
   const CheckInOutScreen({super.key});
@@ -16,7 +16,6 @@ class CheckInOutScreen extends StatefulWidget {
 }
 
 class _CheckInOutScreenState extends State<CheckInOutScreen> {
-
   String checkInTime = "";
   String checkOutTime = "";
 
@@ -32,11 +31,12 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(children: [
-              Text('Checked In : $datetime1.toString()') ,
-              Text("Checked Out : $datetime.toString()"),
-            ],)
-            ,
+            Row(
+              children: [
+                Text('Checked In : $datetime1.toString()'),
+                Text("Checked Out : $datetime.toString()"),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -44,34 +44,35 @@ class _CheckInOutScreenState extends State<CheckInOutScreen> {
                     onPressed: () {
                       CheckedIn();
                     },
-                    child: Text('Check In')),
+                    child: const Text('Check In')),
                 ElevatedButton(
                     onPressed: () {
                       CheckedOut();
                     },
-                    child: Text('Check out'
-                       )),
+                    child: const Text('Check out')),
               ],
             )
           ],
         ));
   }
 
-  void CheckedOut(){
-    FirebaseFirestore.instance.collection("Check in & check out").doc(user!.email).collection("Checked Out").doc(user!.displayName).set(
-        {"Checkout": datetime}).then((value){
+  void CheckedOut() {
+    FirebaseFirestore.instance
+        .collection("Check in & check out")
+        .doc(user)
+        .collection("Checked Out")
+        .doc(FirebaseAuth.instance.currentUser!.displayName.toString())
+        .set({"Checkout": datetime}).then((value) {
       print(datetime);
     });
-
   }
 
-  void CheckedIn(
-  ) async {
+  void CheckedIn() async {
     await FirebaseFirestore.instance
-        .collection("Check in & check out").doc(user!.email).set(
-        {'Checked In': datetime1}
-     ).then((value){
-       print(datetime1);
-     });
+        .collection("Check in & check out")
+        .doc(user)
+        .set({'Checked In': datetime1}).then((value) {
+      print(datetime1);
+    });
   }
 }

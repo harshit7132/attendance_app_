@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors_in_immutables, must_be_immutable, file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextFields extends StatelessWidget {
   final String? hinttext;
@@ -19,29 +20,25 @@ class TextFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mqH = MediaQuery.sizeOf(context).height;
-    final mqW = MediaQuery.sizeOf(context).width;
-
-    return Container(
-      height: mqH * 0.08,
-      width: mqW * 0.9,
-      alignment: Alignment.center,
+    return SizedBox(
+      height: 70.h,
+      width: 500.w,
       child: TextField(
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         controller: controller,
         obscureText: obscureText,
         style: textstyle,
         decoration: InputDecoration(
-            // border: OutlineInputBorder(
-            //   borderSide: BorderSide(width: 2, color: Colors.black),
-            //   borderRadius: BorderRadius.circular(50.0),
-            // ),
-            // enabledBorder: OutlineInputBorder(
-            //   borderSide: BorderSide(width: 2, color: Colors.black),
-            //   borderRadius: BorderRadius.circular(50.0),
-            // ),
-            hintText: hinttext,
-            hintStyle: textstyle,
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(width: 0),
+              borderRadius: BorderRadius.horizontal(left: Radius.circular(35.w),right: Radius.circular(35.w))
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(width: 0),
+            borderRadius: BorderRadius.horizontal(left: Radius.circular(35.w),right: Radius.circular(35.w))
+          ),
+            label: Text('$hinttext'),
+            labelStyle: textstyle,
             prefixIcon: Icon(icon)),
       ),
     );

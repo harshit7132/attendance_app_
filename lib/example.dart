@@ -2,9 +2,10 @@
 import 'package:attendance_app/TabBar_Screens/Existing.dart';
 import 'package:attendance_app/TabBar_Screens/New.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Example extends StatefulWidget {
-  Example({Key? key}) : super(key: key);
+  const Example({Key? key}) : super(key: key);
   @override
   _ExampleState createState() => _ExampleState();
 }
@@ -44,7 +45,7 @@ class _ExampleState extends State<Example> {
             SingleChildScrollView(
               child: SizedBox(
                 //Tab bar & Expended height
-                height: 750,
+                height: 560.h,
                 child: Column(
                   children: [
                     const SizedBox(
@@ -57,21 +58,22 @@ class _ExampleState extends State<Example> {
                         borderRadius: BorderRadius.circular(50),
                         color: Colors.black12,
                       ),
-                      child: TabBar(
+                      child:  TabBar(
                           dividerColor: Colors.transparent,
                           unselectedLabelColor: Colors.white,
                           labelColor: Colors.black,
                           indicator: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30)),
-                          tabs: const [
-                            Tab(
-                              child: Text('Existing',
-                                  style: TextStyle(fontSize: 23)),
+                            borderRadius: BorderRadius.circular(30),
+                              color: Colors.white
+                              ),
+                          tabs: [
+                             const Tab(
+                              child: Text('    Existing     ',
+                                  style: TextStyle(fontSize: 23))
                             ),
                             Tab(
                               child:
-                                  Text('New', style: TextStyle(fontSize: 23)),
+                                  Text('       New                    ', style: TextStyle(fontSize: 23.sp)),
                             )
                           ]),
                     ),
@@ -116,29 +118,27 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       //floating button
-      top: 730,
-      left: 100,
+      top: 610.h,
+      left: 80.w,
       child: Container(
           alignment: Alignment.center,
-          height: 60,
-          width: 230,
+          height: 60.h,
+          width: 230.w,
           decoration: BoxDecoration(
-              boxShadow: const [
-                BoxShadow(color: Colors.black, blurRadius: 5, spreadRadius: 2)
-              ],
-              borderRadius: BorderRadius.circular(10),
-              gradient: const LinearGradient(colors: [
-                Colors.orangeAccent,
-                Colors.pinkAccent,
+              borderRadius: BorderRadius.circular(50),
+              gradient:  const LinearGradient(colors: [
+                Color.fromRGBO(23,175,224, 1),
+                Color.fromRGBO(23,175,224, 1),
+                Color.fromRGBO(102, 231, 226, 1),
               ], begin: Alignment.centerRight, end: Alignment.centerLeft)),
           child: GestureDetector(
             onTap: () {
               //Login();
             },
-            child: const Text(TabBarView == New ? "Sign Up" : "LOGIN",
+            child: Text(TabBarView == New ? "Sign Up" : "LOGIN",
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 25,
+                    fontSize: 25.sp,
                     fontWeight: FontWeight.bold)),
           )),
     );
