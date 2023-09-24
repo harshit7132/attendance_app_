@@ -1,20 +1,16 @@
 // ignore_for_file: prefer_const_constructors, unused_import, unnecessary_null_comparison
-import 'package:attendance_app/Bottom_nav_screen/route.dart';
-import 'package:attendance_app/Home_page/Home_page.dart';
-import 'package:attendance_app/Screens/LOgin_screen.dart';
-import 'package:attendance_app/Screens/Sign_Screen.dart';
-import 'package:attendance_app/Screens/SlashScreen.dart';
-import 'package:attendance_app/calander/event_calendar.dart';
-import 'package:attendance_app/example.dart';
+
+import 'package:attendance_app/New_Attandance/Blocs/Bottom_Nav_bloc/Bottom_Nav_bloc.dart';
+import 'package:attendance_app/New_Attandance/Blocs/Login_bloc/LogIn_Bloc.dart';
+import 'package:attendance_app/New_Attandance/Screens/LOgin_screen.dart';
+import 'package:attendance_app/New_Attandance/Screens/Signin_Screen.dart';
+import 'package:attendance_app/old_attandance/example.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'Bottom_nav_screen/In_App_Purchase/in_app_purchase.dart';
-import 'Flutter_flow/first.dart';
-import 'Screens/Forgot_password.dart';
-import 'bloc/bottom_nav_bloc.dart';
+import 'New_Attandance/Blocs/SignIN_bloc/sign_in_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,21 +20,34 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => BottomNavBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LogIn_bloc(),
+        ),
+        BlocProvider(
+          create: (context) => SignInBloc(),
+        ),
+        BlocProvider(
+          create: (context) => BottomNavBloc(),
+        ),
+      ],
       child: ScreenUtilInit(
-        builder: (context, child) => MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
+        builder: (context, child) =>
+            MaterialApp
+              (
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter Demo',
+                theme: ThemeData(
+                  colorScheme: ColorScheme.fromSeed(
+                      seedColor: Colors.deepPurple),
+                  useMaterial3: true,
+                ),
+              home: Login_Screen(),
             ),
-            initialRoute: '/',
-            onGenerateRoute: RouteGen().generateRoute,
-            home: Splash_screen() ),
       ),
     );
   }

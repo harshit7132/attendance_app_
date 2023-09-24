@@ -3,12 +3,14 @@ class UserModel {
   String? username;
   String? password;
   String? email;
+  String? phone;
   String? img;
 
   UserModel(
       {required this.email,
       required this.password,
       required this.username,
+      required this.phone,
       this.img,
       this.id});
 
@@ -17,6 +19,7 @@ class UserModel {
     username = map["UserName"];
     email = map["E-mail"];
     password = map["Password"];
+    phone = map["Phone"];
     img = map["Image"];
   }
 
@@ -26,6 +29,7 @@ class UserModel {
       "UserName": username,
       "E-mail": email,
       "Password": password,
+      "Phone": phone,
       "Image": img
     };
   }
